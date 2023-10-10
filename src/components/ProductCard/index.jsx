@@ -12,35 +12,34 @@ import {
   Button,
   Link,
   Stack,
+  Flex,
+  Spacer,
 } from "@chakra-ui/react";
 
 export function ProductCard(product) {
   const { description, discountedPrice, id, imageUrl, title } = product;
   return (
-    <Card maxW="sm">
-      <Divider />
-      <CardBody>
+    <Card maxW="20rem" margin="1rem">
+      <CardBody direction="column" justifyContent="space-around">
         <Image
+          boxSize="10rem"
           src={imageUrl}
           alt="Product image of {title}"
-          borderRadius="lg"
+          borderRadius="md"
         />
         <Stack mt="6" spacing="3">
-          <Heading size="md">{title}</Heading>
+          <Heading size="sm">{title}</Heading>
           <Text>{description}</Text>
-          <Text color="blue.600" fontSize="2xl">
-            {discountedPrice}
-          </Text>
+          <Flex alignItems="flex-end" justifyContent="space-around">
+            <Text color="blue.600" fontSize="2xl">
+              {discountedPrice}
+            </Text>
+            <Button variant="solid" colorScheme="blue">
+              <Link to={`/product/${id}`}>View Product</Link>
+            </Button>
+          </Flex>
         </Stack>
       </CardBody>
-
-      <CardFooter>
-        <ButtonGroup spacing="2">
-          <Button variant="solid" colorScheme="blue">
-            <Link to={`/product/${id}`}>View Product</Link>
-          </Button>
-        </ButtonGroup>
-      </CardFooter>
     </Card>
   );
 }

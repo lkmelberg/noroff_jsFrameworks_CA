@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Link, useParams } from "react-router-dom";
 
-export function FetchProduct() {
-  const [data, setData] = useState(null);
+export function FetchProduct(url) {
+  const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   let { id } = useParams();
 
   useEffect(() => {
-    async function getData(url) {
+    async function getProduct(url) {
       try {
         setIsLoading(true);
         setIsError(false);
@@ -16,7 +16,7 @@ export function FetchProduct() {
         const response = await fetch(url);
         const json = await response.json();
 
-        setData(json);
+        setProduct(json);
       } catch (error) {
         console.log(error);
       } finally {
@@ -24,23 +24,18 @@ export function FetchProduct() {
       }
     }
 
-    getData(`${url}/${id}`);
+    getProduct(`${url}/${id}`);
   }, [id]);
 
-  if (isLoading || !data) {
-    return <div>Loading</div>;
-  }
+  // if (isLoading || !product) {
+  //   return <div>Loading</div>;
+  // }
 
-  if (isError) {
-    return <div>Error</div>;
-  }
+  // if (isError) {
+  //   return <div>Error</div>;
+  // }
 
-  console.log(data);
+  console.log(product);
 
-  return (
-    <div>
-      <div>To Do:</div>
-      <div>Item: {data.title}</div>
-    </div>
-  );
+  return { product, isLoading, isError };
 }
