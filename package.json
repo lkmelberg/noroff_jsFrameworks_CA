@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/eslint-parser": "7.22.5",
+    "@babel/plugin-proposal-private-property-in-object": "7.21.11",
+    "@babel/preset-env": "7.22.5",
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
@@ -51,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.0"
   }
 }
