@@ -6,7 +6,12 @@ import Wideselection from "../../WideSelection.svg";
 export function Header() {
   return (
     <header>
-      <Image width={150} height={50} src={Wideselection} alt="Dan Abramov" />
+      <Image
+        width={150}
+        height={50}
+        src={Wideselection}
+        alt="Logo for website WodeSelection"
+      />
 
       <Nav />
     </header>

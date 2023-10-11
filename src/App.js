@@ -7,6 +7,7 @@ import { Contact } from "./render/Contact";
 import { Cart } from "./render/Cart";
 import { Error } from "./render/Error";
 import { Product } from "./render/Product";
+import { CheckoutSuccess } from "./render/CheckoutSuccess";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="Contact" element={<Contact />} />
           <Route path="Cart" element={<Cart />} />
           <Route path="product/:id" element={<Product />} />
+          <Route path="CheckoutSuccess" element={<CheckoutSuccess />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>
