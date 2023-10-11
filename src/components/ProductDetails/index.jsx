@@ -105,8 +105,8 @@ export function ProductDetails() {
             src={imageUrl}
             fit={"cover"}
             align={"center"}
-            w={"100%"}
-            h={{ base: "100%", sm: "400px", lg: "500px" }}
+            w={"70%"}
+            h={{ base: "70%", sm: "400px", lg: "500px" }}
           />
         </Flex>
         <Stack spacing={{ base: 6, md: 10 }}>
