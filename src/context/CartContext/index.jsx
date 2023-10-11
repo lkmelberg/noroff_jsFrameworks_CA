@@ -30,11 +30,9 @@ const cartReducer = (state, action) => {
 export const CartProvider = ({ children }) => {
   const initialState = loadCartStateFromLocalStorage();
 
-  // If there are no saved cart items in localStorage, use an empty cart state
   const initialCartState = initialState || { cartItems: [] };
   const [cartState, dispatch] = useReducer(cartReducer, initialCartState);
 
-  // Function to load the initial cart state from localStorage
   const loadInitialCartStateFromLocalStorage = () => {
     const storedState = JSON.parse(localStorage.getItem("cartState")) || {
       cartItems: [],
