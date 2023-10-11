@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Box,
   chakra,
@@ -13,29 +13,27 @@ import {
   Heading,
   SimpleGrid,
   StackDivider,
-  VisuallyHidden,
-  List,
-  ListItem,
 } from "@chakra-ui/react";
-
-import { API_BASE_URL } from "../../api";
+import {
+  useCart,
+  saveCartStateToLocalStorage,
+  loadCartStateFromLocalStorage,
+} from "../../context/CartContext";
+import { FetchProduct } from "../../api/FetchProduct";
 
 export function Product() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
   let { id } = useParams();
 
+  const { dispatch, cartState } = useCart();
+
   useEffect(() => {
-    async function getData(url) {
+    async function fetchData() {
       try {
         setIsLoading(true);
-        setIsError(false);
-
-        const response = await fetch(url);
-        const json = await response.json();
-
-        setData(json);
+        const productData = await FetchProduct(id);
+        setData(productData);
       } catch (error) {
         console.log(error);
       } finally {
@@ -43,29 +41,27 @@ export function Product() {
       }
     }
 
-    getData(`${API_BASE_URL}/${id}`);
+    fetchData();
   }, [id]);
+  const handleAddToCart = () => {
+    // Dispatch the action to add the item to the cart
+    dispatch({ type: "ADD_TO_CART", payload: data });
+
+    // Get the current cart state
+    const updatedCart = {
+      ...cartState,
+      cartItems: [...cartState.cartItems, data],
+    };
+
+    // Save the updated cart state to localStorage
+    saveCartStateToLocalStorage(updatedCart);
+  };
 
   if (isLoading || !data) {
     return <div>Loading</div>;
   }
 
-  if (isError) {
-    return <div>Error</div>;
-  }
-
-  console.log(data);
-
-  const {
-    title,
-    description,
-    price,
-    discountedPrice,
-    imageUrl,
-    rating,
-    tags,
-    reviews,
-  } = data;
+  const { title, description, discountedPrice, imageUrl, tags, reviews } = data;
 
   return (
     <Container maxW={"7xl"}>
@@ -118,9 +114,10 @@ export function Product() {
                 Product Tags:
               </Text>
               <Text fontSize={"lg"}>
-                {tags.map((tag) => (
+                {tags.map((tag, index) => (
                   <>
                     <Text
+                      key={index}
                       fontSize={{ base: "12px", lg: "14px" }}
                       as={"li"}
                       fontWeight={"light"}>
@@ -131,7 +128,10 @@ export function Product() {
               </Text>
             </Box>
             <Flex justifyContent="space-around">
-              <Button variant="solid" colorScheme="blue">
+              <Button
+                variant="solid"
+                colorScheme="blue"
+                onClick={handleAddToCart}>
                 Add to cart
               </Button>
 
@@ -152,9 +152,9 @@ export function Product() {
                 Product Reviews:
               </Text>
               <Text fontSize={"lg"}>
-                {reviews.map((reviews) => (
+                {reviews.map((reviews, index) => (
                   <>
-                    <Text as={"span"} fontWeight={"bold"}>
+                    <Text key={index} as={"span"} fontWeight={"bold"}>
                       {reviews.username}
                     </Text>
                     <span fontWeight={"light"}> {reviews.description}</span>
