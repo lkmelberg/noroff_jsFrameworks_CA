@@ -1,13 +1,9 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 
 const CartContext = createContext();
 
 export const useCart = () => {
   return useContext(CartContext);
-};
-
-const initialState = {
-  cartItems: [],
 };
 
 const cartReducer = (state, action) => {
@@ -24,11 +20,6 @@ const cartReducer = (state, action) => {
           (item) => item.id !== action.payload.id
         ),
       };
-    case "REMOVE_ALL_FROM_CART":
-      return {
-        ...state,
-        cartItems: [],
-      };
     case "LOAD_CART_STATE_FROM_STORAGE":
       return action.payload;
     default:
@@ -38,14 +29,26 @@ const cartReducer = (state, action) => {
 
 export const CartProvider = ({ children }) => {
   const initialState = loadCartStateFromLocalStorage();
-  const [cartState, dispatch] = useReducer(cartReducer, initialState);
-  const removeAllFromCart = () => {
-    dispatch({ type: "REMOVE_ALL_FROM_CART" });
-    localStorage.clear();
+
+  // If there are no saved cart items in localStorage, use an empty cart state
+  const initialCartState = initialState || { cartItems: [] };
+  const [cartState, dispatch] = useReducer(cartReducer, initialCartState);
+
+  // Function to load the initial cart state from localStorage
+  const loadInitialCartStateFromLocalStorage = () => {
+    const storedState = JSON.parse(localStorage.getItem("cartState")) || {
+      cartItems: [],
+    };
+    dispatch({ type: "LOAD_CART_STATE_FROM_STORAGE", payload: storedState });
   };
 
+  // Load the initial cart state from localStorage when the CartProvider is created
+  useEffect(() => {
+    loadInitialCartStateFromLocalStorage();
+  }, []);
+
   return (
-    <CartContext.Provider value={{ cartState, dispatch, removeAllFromCart }}>
+    <CartContext.Provider value={{ cartState, dispatch }}>
       {children}
     </CartContext.Provider>
   );

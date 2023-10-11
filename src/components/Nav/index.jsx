@@ -3,10 +3,16 @@ import { Link } from "react-router-dom";
 import { Tabs, TabList, Tab } from "@chakra-ui/react";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCart";
 import { teal } from "@mui/material/colors";
-import { useCart } from "../../context/CartContext";
-
+import {
+  useCart,
+  loadCartStateFromLocalStorage,
+} from "../../context/CartContext";
+import { useEffect } from "react";
 export function Nav() {
   const { cartState } = useCart();
+  useEffect(() => {
+    loadCartStateFromLocalStorage();
+  }, []);
   const numberOfItemsInCart = cartState.cartItems.length;
 
   return (

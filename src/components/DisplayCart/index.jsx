@@ -1,11 +1,7 @@
 // Cart.js
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  useCart,
-  saveCartStateToLocalStorage,
-  loadCartStateFromLocalStorage,
-} from "../../context/CartContext";
+import { useCart } from "../../context/CartContext";
 
 import {
   Text,
@@ -20,15 +16,27 @@ import {
 } from "@chakra-ui/react";
 
 export function DisplayCart() {
-  const { cartState, dispatch, removeAllFromCart } = useCart();
+  const { cartState, dispatch } = useCart();
+
   const numberOfItemsInCart = cartState.cartItems.length;
 
   const removeFromCart = (item) => {
     dispatch({ type: "REMOVE_FROM_CART", payload: item });
   };
 
-  const handleRemoveAll = () => {
-    removeAllFromCart();
+  const removeAllFromCart = () => {
+    localStorage.clear();
+  };
+
+  const saveCartStateToLocalStorage = (state) => {
+    localStorage.setItem("cartState", JSON.stringify(state));
+  };
+
+  const loadCartStateFromLocalStorage = () => {
+    const storedState = JSON.parse(localStorage.getItem("cartState")) || {
+      cartItems: [],
+    };
+    dispatch({ type: "LOAD_CART_STATE_FROM_STORAGE", payload: storedState });
   };
 
   useEffect(() => {
@@ -116,7 +124,11 @@ export function DisplayCart() {
               <Button
                 as={Link}
                 to="/CheckoutSuccess"
-                onClick={handleRemoveAll}
+                onClick={() => {
+                  removeAllFromCart();
+                  window.location.reload(true);
+                  window.location.href = "/CheckoutSuccess";
+                }}
                 colorScheme="blue"
                 size="lg"
                 fontSize="md">
