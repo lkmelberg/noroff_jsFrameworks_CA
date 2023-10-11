@@ -42,6 +42,7 @@ export function ProductDetails() {
 
     fetchData();
   }, [id]);
+
   const handleAddToCart = () => {
     dispatch({ type: "ADD_TO_CART", payload: data });
 
@@ -59,7 +60,37 @@ export function ProductDetails() {
     return <div>Loading</div>;
   }
 
-  const { title, description, discountedPrice, imageUrl, tags, reviews } = data;
+  const {
+    title,
+    description,
+    price,
+    discountedPrice,
+    imageUrl,
+    tags,
+    reviews,
+  } = data;
+
+  function Discount() {
+    const calcDiscount = (price, discountedPrice) => {
+      const difference = price - discountedPrice;
+      const percentage = (difference / price) * 100;
+      return percentage.toFixed();
+    };
+    const discount = calcDiscount(price, discountedPrice);
+
+    if (discountedPrice < price) {
+      return (
+        <Text
+          className="discount"
+          color={("gray.900", "gray.400")}
+          fontWeight={300}
+          fontSize={"2xl"}>
+          {discount} % off
+        </Text>
+      );
+    }
+  }
+  Discount();
 
   return (
     <Container maxW={"7xl"}>
@@ -74,8 +105,8 @@ export function ProductDetails() {
             src={imageUrl}
             fit={"cover"}
             align={"center"}
-            w={"100%"}
-            h={{ base: "100%", sm: "400px", lg: "500px" }}
+            w={"70%"}
+            h={{ base: "70%", sm: "400px", lg: "500px" }}
           />
         </Flex>
         <Stack spacing={{ base: 6, md: 10 }}>
@@ -85,6 +116,7 @@ export function ProductDetails() {
               fontWeight={600}
               fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}>
               {title}
+              <Discount></Discount>
             </Heading>
             <Text
               color={("gray.900", "gray.400")}
@@ -92,6 +124,10 @@ export function ProductDetails() {
               fontSize={"2xl"}>
               {discountedPrice} NOK
             </Text>
+            <Text
+              color={("gray.900", "gray.400")}
+              fontWeight={300}
+              fontSize={"2xl"}></Text>
           </Box>
 
           <Stack

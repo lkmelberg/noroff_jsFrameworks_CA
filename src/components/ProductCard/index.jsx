@@ -36,7 +36,7 @@ export function ProductCard(product) {
             <Text color="blue.600" fontSize="2xl">
               {discountedPrice}
             </Text>
-            <Button variant="solid" colorScheme="blue">
+            <Button variant="outline" colorScheme="blue">
               <Link to={`/product/${id}`}>View Product</Link>
             </Button>
           </Flex>
