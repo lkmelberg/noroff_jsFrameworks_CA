@@ -12,6 +12,7 @@ export const MyTheme = extendTheme({
         color: "black",
       },
       // styles for the `a`
+
       a: {
         color: "black",
         _hover: {

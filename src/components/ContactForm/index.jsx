@@ -1,13 +1,7 @@
 import React from "react";
 
 import { useForm } from "react-hook-form";
-import {
-  FormErrorMessage,
-  FormLabel,
-  FormControl,
-  Input,
-  Button,
-} from "@chakra-ui/react";
+import { FormLabel, Input, Button } from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -56,22 +50,35 @@ export function ContactForm() {
       <FormLabel color="teal" htmlFor="fullName">
         First name:
       </FormLabel>
-      <Input placeholder="Your Full Name" {...register("fullName")} />
+      <Input
+        borderColor={"grey"}
+        placeholder="Your Full Name"
+        {...register("fullName")}
+      />
       <p>{errors.fullName?.message}</p>
       <FormLabel color="teal" htmlFor="email">
         Email:
       </FormLabel>
-      <Input placeholder="Your Email" {...register("email")} />
+      <Input
+        borderColor={"grey"}
+        placeholder="Your Email"
+        {...register("email")}
+      />
       <p>{errors.email?.message}</p>
       <FormLabel color="teal" htmlFor="subject">
         Subject:
       </FormLabel>
-      <Input placeholder="Your Subject" {...register("subject")} />
+      <Input
+        borderColor={"grey"}
+        placeholder="Your Subject"
+        {...register("subject")}
+      />
       <p>{errors.subject?.message}</p>
       <FormLabel color="teal" htmlFor="body">
         Message:
       </FormLabel>
       <Textarea
+        borderColor={"grey"}
         name="body"
         placeholder="Your Message"
         rows={6}

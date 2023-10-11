@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Tabs, TabList, Tab } from "@chakra-ui/react";
+import { Tabs, TabList, Tab, Center } from "@chakra-ui/react";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCart";
 import { teal } from "@mui/material/colors";
 import {
@@ -17,7 +17,7 @@ export function Nav() {
 
   return (
     <Tabs border={(5, "black")} variant="enclosed">
-      <TabList borderBottom={"transparent"}>
+      <TabList borderBottom={"transparent"} justifyContent={"center"}>
         <Tab borderBottom={"transparent"}>
           <Link to="/">Products</Link>
         </Tab>

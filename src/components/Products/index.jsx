@@ -27,8 +27,11 @@ export function Products() {
 
   return (
     <>
-      <Flex>
+      <Flex marginTop={"1rem"} justifyContent={"center"}>
         <Input
+          borderColor={{ opacity: 0.8, color: "blue.500" }}
+          size={"md"}
+          _placeholder={{ opacity: 0.8, color: "blue.500" }}
           maxWidth="sm"
           type="text"
           placeholder="Search products by title"
