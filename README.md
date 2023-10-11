@@ -29,42 +29,84 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+# this was for a school project - js frameworks CA
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Brief
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The API you are using for this brief is: https://api.noroff.dev/api/v1/online-shop
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+You can find individual items by appending a product ID at the end of the API URL e.g. https://api.noroff.dev/api/v1/online-shop/f99cafd2-bd40-4694-8b33-a6052f36b435
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+You are tasked with build out the following pages for an eCom store:
 
-## Learn More
+    Homepage
+    Individual product page
+    Cart page
+    Checkout success page
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The Homepage should have a list of all the products. There should be a look-ahead search bar that filters products when typing in a product name. Clicking on a product should take a user to an individual product page.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+You pages should use a <Layout> component that contains a header and footer. The header should contain a nav bar as well as a Cart icon component that acts as a button as well as displays the current number of items in the cart.
 
-### Code Splitting
+The individual product page should display data for a single product. There should be an Add to cart button which, upon clicking, adds the product to the cart. The product page should display the title of the product, the description and the image. There should also be reviews listed for the product, if there are any. You should use the discountedPrice property to display the price of the product. If there is a difference between the discountedPrice and price properties then that means there is a discount for that product. Calculate what this discount is and display it on the page.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Clicking on the Cart icon will load the Cart page, which will list all of the products as well as a total. The Cart page will have a Checkout button. Clicking this Checkout button then goes to a Checkout success page.
 
-### Analyzing the Bundle Size
+The Checkout success page will display a message to the user notifying them that their order was successful. There should also be a link that lets a user go back to the store. The cart must be cleared if the user gets to the Checkout success page.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+There will be a contact page which will contain a contact form with the following fields. There must be form validation:
 
-### Making a Progressive Web App
+    Full name (Minimum number of characters is 3, required)
+    Subject (Minimum number of characters is 3, required)
+    Email (Must be a valid email address, required)
+    Body (Minimum number of characters is 3, required)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+You will be using React Router to switch between pages.
 
-### Advanced Configuration
+Your design should be responsive. You are welcome to use a CSS Framework, however, you’re encouraged to design from scratch and use styled-components or CSS Modules.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+You are not required to use TypeScript.
 
-### Deployment
+Your code is expected to be clean and well-formatted.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Process
 
-### `npm run build` fails to minify
+    Create a new CRA app.
+    Create a Header that has a Nav.
+    Create a Cart Icon component and position this next to your Nav. This Cart Icon component will have an overlay that displays the number of items in the cart.
+    Create a Footer component.
+    Create a Layout component that has your Header and Footer.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    Create the other pages:
+
+    6.1 ContactPage
+
+    6.2 ProductPage
+
+    6.3 CheckoutPage
+
+    6.4 CheckoutSuccessPage
+    Add React Router and route to each of the pages. The ProductPage page will be using a dynamic segment.
+    Fetch the list of products on the Homepage and store this as a state.
+    On the homepage, loop through the products and display a Product component for each of the values. This Product component should look like a product card. Each Product component will have a View product button which will link to the ProductPage page.
+    The homepage should have a lookahead/auto-complete Search bar component. Typing values in the search bar should display products where the title matches the search input. Clicking on an item should take the user to the ProductPage page. Tip: Filter the user input and then display products that match the input.
+    On the ProductPage, use the ID of the product as the params for the dynamic segment. Add the product details as mentioned in the brief.
+    Create a cart state. When the Add to cart button on the ProductPage is clicked, add the product to the cart.
+    Clicking on the Cart Icon component will take the user to the CheckoutPage page.
+    The CheckoutPage must list all of the products in the cart, show a total at the bottom and a Checkout button.
+    Clicking the Checkout button will take the user to the CheckoutSuccessPage.
+    The CheckoutSuccessPage should display that the order was successful and clear the cart. There should be a link to go back to the store.
+
+    On the ContactPage, create the following inputs with the following requirements.
+
+    16.1 Full name (Minimum number of characters is 3, required)
+
+    16.2 Subject (Minimum number of characters is 3, required)
+
+    16.3 Email (Must be a valid email address, required)
+
+    16.4 Body (Minimum number of characters is 3, required)
+
+    16.5 Submit button
+    console.log the data from the form once validation requirements are met.
+    Once your project is done, deploy it to Netlify.
