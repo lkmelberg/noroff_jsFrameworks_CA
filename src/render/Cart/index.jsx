@@ -1,5 +1,11 @@
+// Cart.js
 import React from "react";
+import { DisplayCart } from "../../components/DisplayCart";
 
 export function Cart() {
-  return <div>This is a cart</div>;
+  return (
+    <div>
+      <DisplayCart></DisplayCart>
+    </div>
+  );
 }
