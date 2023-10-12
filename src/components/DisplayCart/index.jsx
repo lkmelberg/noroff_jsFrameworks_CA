@@ -28,22 +28,23 @@ export function DisplayCart() {
     localStorage.clear();
   };
 
-  const saveCartStateToLocalStorage = (state) => {
-    localStorage.setItem("cartState", JSON.stringify(state));
-  };
-
-  const loadCartStateFromLocalStorage = () => {
-    const storedState = JSON.parse(localStorage.getItem("cartState")) || {
-      cartItems: [],
-    };
-    dispatch({ type: "LOAD_CART_STATE_FROM_STORAGE", payload: storedState });
-  };
-
   useEffect(() => {
+    const loadCartStateFromLocalStorage = () => {
+      const storedState = JSON.parse(localStorage.getItem("cartState")) || {
+        cartItems: [],
+      };
+      dispatch({
+        type: "LOAD_CART_STATE_FROM_STORAGE",
+        payload: storedState,
+      });
+    };
     loadCartStateFromLocalStorage();
   }, []);
 
   useEffect(() => {
+    const saveCartStateToLocalStorage = (state) => {
+      localStorage.setItem("cartState", JSON.stringify(state));
+    };
     saveCartStateToLocalStorage(cartState);
   }, [cartState]);
 
