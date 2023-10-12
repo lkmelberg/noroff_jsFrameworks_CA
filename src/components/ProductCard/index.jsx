@@ -1,21 +1,15 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import { Routes, Route, Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import {
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
   Image,
   Heading,
   Text,
-  Divider,
-  ButtonGroup,
   Button,
   Stack,
   Flex,
-  Spacer,
 } from "@chakra-ui/react";
 
 export function ProductCard(product) {

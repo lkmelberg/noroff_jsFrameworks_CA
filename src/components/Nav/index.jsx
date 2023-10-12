@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Tabs, TabList, Tab, Center } from "@chakra-ui/react";
+import { Tabs, TabList, Tab } from "@chakra-ui/react";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCart";
 import { teal } from "@mui/material/colors";
 import {

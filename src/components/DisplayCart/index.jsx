@@ -28,6 +28,19 @@ export function DisplayCart() {
     localStorage.clear();
   };
 
+  // useEffect(() => {
+  //   const loadCartStateFromLocalStorage = () => {
+  //     const storedState = JSON.parse(localStorage.getItem("cartState")) || {
+  //       cartItems: [],
+  //     };
+  //     dispatch({
+  //       type: "LOAD_CART_STATE_FROM_STORAGE",
+  //       payload: storedState,
+  //     });
+  //   };
+  //   loadCartStateFromLocalStorage();
+  // }, []);
+
   useEffect(() => {
     const loadCartStateFromLocalStorage = () => {
       const storedState = JSON.parse(localStorage.getItem("cartState")) || {
@@ -39,7 +52,7 @@ export function DisplayCart() {
       });
     };
     loadCartStateFromLocalStorage();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     const saveCartStateToLocalStorage = (state) => {
