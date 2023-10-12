@@ -22,6 +22,7 @@ import { FetchProduct } from "../../api/FetchProduct";
 export function ProductDetails() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [confirmMsg, setConfirmMsg] = useState(false);
   let { id } = useParams();
 
   const { dispatch, cartState } = useCart();
@@ -91,6 +92,13 @@ export function ProductDetails() {
   }
   Discount();
 
+  const showConfirmMsg = () => {
+    setConfirmMsg(true);
+    setTimeout(() => {
+      setConfirmMsg(false);
+    }, 1000);
+  };
+
   return (
     <Container maxW={"7xl"}>
       <SimpleGrid
@@ -115,6 +123,7 @@ export function ProductDetails() {
               fontWeight={600}
               fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}>
               {title}
+
               <Discount></Discount>
             </Heading>
             <Text
@@ -164,7 +173,10 @@ export function ProductDetails() {
               <Button
                 variant="solid"
                 colorScheme="blue"
-                onClick={handleAddToCart}>
+                onClick={() => {
+                  handleAddToCart();
+                  showConfirmMsg();
+                }}>
                 Add to cart
               </Button>
 
@@ -172,7 +184,11 @@ export function ProductDetails() {
                 direction="row"
                 alignItems="center"
                 justifyContent={"center"}>
-                <Text>2-3 business days delivery</Text>
+                {confirmMsg && (
+                  <Text color={"Teal"} fontWeight={500} fontSize={"2xl"}>
+                    Product Added
+                  </Text>
+                )}
               </Stack>
             </Flex>
             <Box>
