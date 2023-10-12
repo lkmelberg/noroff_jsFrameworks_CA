@@ -1,7 +1,7 @@
 import React from "react";
-
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FormLabel, Input, Button } from "@chakra-ui/react";
+import { FormLabel, Input, Button, Text } from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -31,6 +31,14 @@ const schema = yup
   .required();
 
 export function ContactForm() {
+  const [confirmMsg, setConfirmMsg] = useState(false);
+
+  const showConfirmMsg = () => {
+    setConfirmMsg(true);
+    setTimeout(() => {
+      setConfirmMsg(false);
+    }, 4000);
+  };
   const {
     register,
     handleSubmit,
@@ -41,6 +49,7 @@ export function ContactForm() {
   });
 
   function onSubmit(data) {
+    showConfirmMsg();
     console.log(data);
     reset();
   }
@@ -86,7 +95,11 @@ export function ContactForm() {
         {...register("body")}
       />
       <p>{errors.body?.message}</p>
-
+      {confirmMsg && (
+        <Text color={"Teal"} fontWeight={500} fontSize={"2xl"}>
+          Form Submitted!
+        </Text>
+      )}
       <Button mt={4} colorScheme="teal" type="submit">
         Submit
       </Button>
