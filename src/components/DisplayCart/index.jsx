@@ -28,22 +28,36 @@ export function DisplayCart() {
     localStorage.clear();
   };
 
-  const saveCartStateToLocalStorage = (state) => {
-    localStorage.setItem("cartState", JSON.stringify(state));
-  };
+  // useEffect(() => {
+  //   const loadCartStateFromLocalStorage = () => {
+  //     const storedState = JSON.parse(localStorage.getItem("cartState")) || {
+  //       cartItems: [],
+  //     };
+  //     dispatch({
+  //       type: "LOAD_CART_STATE_FROM_STORAGE",
+  //       payload: storedState,
+  //     });
+  //   };
+  //   loadCartStateFromLocalStorage();
+  // }, []);
 
-  const loadCartStateFromLocalStorage = () => {
-    const storedState = JSON.parse(localStorage.getItem("cartState")) || {
-      cartItems: [],
+  useEffect(() => {
+    const loadCartStateFromLocalStorage = () => {
+      const storedState = JSON.parse(localStorage.getItem("cartState")) || {
+        cartItems: [],
+      };
+      dispatch({
+        type: "LOAD_CART_STATE_FROM_STORAGE",
+        payload: storedState,
+      });
     };
-    dispatch({ type: "LOAD_CART_STATE_FROM_STORAGE", payload: storedState });
-  };
-
-  useEffect(() => {
     loadCartStateFromLocalStorage();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
+    const saveCartStateToLocalStorage = (state) => {
+      localStorage.setItem("cartState", JSON.stringify(state));
+    };
     saveCartStateToLocalStorage(cartState);
   }, [cartState]);
 

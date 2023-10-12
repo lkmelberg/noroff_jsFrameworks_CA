@@ -33,15 +33,17 @@ export const CartProvider = ({ children }) => {
   const initialCartState = initialState || { cartItems: [] };
   const [cartState, dispatch] = useReducer(cartReducer, initialCartState);
 
-  const loadInitialCartStateFromLocalStorage = () => {
-    const storedState = JSON.parse(localStorage.getItem("cartState")) || {
-      cartItems: [],
-    };
-    dispatch({ type: "LOAD_CART_STATE_FROM_STORAGE", payload: storedState });
-  };
-
-  // Load the initial cart state from localStorage when the CartProvider is created
   useEffect(() => {
+    const loadInitialCartStateFromLocalStorage = () => {
+      const storedState = JSON.parse(localStorage.getItem("cartState")) || {
+        cartItems: [],
+      };
+      dispatch({
+        type: "LOAD_CART_STATE_FROM_STORAGE",
+        payload: storedState,
+      });
+    };
+
     loadInitialCartStateFromLocalStorage();
   }, []);
 
